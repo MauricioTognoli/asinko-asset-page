@@ -1,7 +1,7 @@
 import { AssetHeader } from "@/components/asset-header";
-import { ContentSection } from "@/components/content-section";
 import { Header } from "@/components/header";
 import { PostsSection } from "@/components/posts/posts-section";
+import { ThesesSection } from "@/components/theses/theses-section";
 import { getAsset } from "@/lib/asset";
 
 export default function Home() {
@@ -14,11 +14,7 @@ export default function Home() {
         <AssetHeader asset={asset} />
         <div className="mt-8 flex flex-col gap-10">
           <PostsSection />
-          <ContentSection
-            id="theses"
-            title="Tesis"
-            subtitle={`${asset.theses.length} tesis`}
-          />
+          <ThesesSection />
         </div>
       </main>
     </div>
