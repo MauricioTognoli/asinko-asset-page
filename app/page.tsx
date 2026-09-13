@@ -1,6 +1,7 @@
 import { AssetHeader } from "@/components/asset-header";
 import { ContentSection } from "@/components/content-section";
 import { Header } from "@/components/header";
+import { PostsSection } from "@/components/posts/posts-section";
 import { getAsset } from "@/lib/asset";
 
 export default function Home() {
@@ -12,11 +13,7 @@ export default function Home() {
       <main className="w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8 mx-auto">
         <AssetHeader asset={asset} />
         <div className="mt-8 flex flex-col gap-10">
-          <ContentSection
-            id="posts"
-            title="Posteos"
-            subtitle={`${asset.posts.length} publicaciones`}
-          />
+          <PostsSection />
           <ContentSection
             id="theses"
             title="Tesis"
