@@ -1,51 +1,24 @@
-import {
-  ArrowBigDown,
-  ArrowBigUp,
-  Check,
-  CircleDot,
-  MessageSquare,
-} from "lucide-react";
+import Link from "next/link";
 
+import { ThesisStatusBadges } from "@/components/theses/thesis-status-badges";
 import { UserAvatar } from "@/components/user-avatar";
+import { VoteStats } from "@/components/vote-stats";
 import { formatConviction, formatDeadline } from "@/lib/format";
 import type { Thesis } from "@/types/asset";
 
 interface ThesisCardProps {
   thesis: Thesis;
+  assetId: string;
 }
 
-function ThesisStatusBadges({ thesis }: { thesis: Thesis }) {
-  const isAcertada = thesis.status === "closed" && thesis.outcome === "correct";
-
-  return (
-    <div className="flex flex-wrap items-center gap-2">
-      {thesis.status === "open" ? (
-        <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground">
-          <CircleDot className="size-3" aria-hidden="true" />
-          Abierta
-        </span>
-      ) : (
-        <span className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-          Cerrada
-        </span>
-      )}
-      {isAcertada && (
-        <span className="inline-flex items-center gap-1 rounded-full border border-brand/30 bg-brand/10 px-2.5 py-0.5 text-xs font-medium text-brand">
-          <Check className="size-3" aria-hidden="true" />
-          Acertada
-        </span>
-      )}
-    </div>
-  );
-}
-
-export function ThesisCard({ thesis }: ThesisCardProps) {
+export function ThesisCard({ thesis, assetId }: ThesisCardProps) {
   const claimId = `${thesis.id}-claim`;
 
   return (
-    <article
+    <Link
+      href={`/asset/${assetId}/thesis/${thesis.id}`}
       aria-labelledby={claimId}
-      className="flex cursor-pointer flex-col gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand/40 hover:bg-accent/40 sm:p-5"
+      className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand/40 hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none sm:p-5"
     >
       <ThesisStatusBadges thesis={thesis} />
 
@@ -53,9 +26,7 @@ export function ThesisCard({ thesis }: ThesisCardProps) {
         <UserAvatar name={thesis.author} />
         <div className="flex flex-1 flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
           <span className="font-medium text-foreground">@{thesis.author}</span>
-          <time className="text-sm text-muted-foreground">
-            {thesis.publishedAt}
-          </time>
+          <time className="text-sm text-muted-foreground">{thesis.publishedAt}</time>
         </div>
       </div>
 
@@ -97,29 +68,11 @@ export function ThesisCard({ thesis }: ThesisCardProps) {
         {thesis.reasoning}
       </p>
 
-      <div className="flex items-center gap-4 border-t border-border pt-3 text-sm text-muted-foreground">
-        <span
-          className="inline-flex items-center gap-1 tabular-nums"
-          aria-label={`${thesis.votes.upvotes} votos a favor`}
-        >
-          <ArrowBigUp className="size-4" aria-hidden="true" />
-          <span aria-hidden="true">{thesis.votes.upvotes}</span>
-        </span>
-        <span
-          className="inline-flex items-center gap-1 tabular-nums"
-          aria-label={`${thesis.votes.downvotes} votos en contra`}
-        >
-          <ArrowBigDown className="size-4" aria-hidden="true" />
-          <span aria-hidden="true">{thesis.votes.downvotes}</span>
-        </span>
-        <span
-          className="inline-flex items-center gap-1 tabular-nums"
-          aria-label={`${thesis.commentCount} comentarios`}
-        >
-          <MessageSquare className="size-4" aria-hidden="true" />
-          <span aria-hidden="true">{thesis.commentCount}</span>
-        </span>
-      </div>
-    </article>
+      <VoteStats
+        votes={thesis.votes}
+        commentCount={thesis.commentCount}
+        className="border-t border-border pt-3"
+      />
+    </Link>
   );
 }

@@ -3,18 +3,14 @@ import { PostCard } from "@/components/posts/post-card";
 import { getAsset } from "@/lib/asset";
 
 export function PostsSection() {
-  const { posts } = getAsset();
+  const asset = getAsset();
 
   return (
-    <ContentSection
-      id="posts"
-      title="Posteos"
-      subtitle={`${posts.length} publicaciones`}
-    >
+    <ContentSection id="posts" title="Posteos" subtitle={`${asset.posts.length} publicaciones`}>
       <ul className="flex flex-col gap-4">
-        {posts.map((post) => (
+        {asset.posts.map((post) => (
           <li key={post.id}>
-            <PostCard post={post} />
+            <PostCard post={post} assetId={asset.id} />
           </li>
         ))}
       </ul>
