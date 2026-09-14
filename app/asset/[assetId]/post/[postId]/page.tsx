@@ -2,10 +2,9 @@ import { notFound } from "next/navigation";
 
 import { AssetHeader } from "@/components/asset-header";
 import { BackLink } from "@/components/back-link";
-import { CommentList } from "@/components/comment-list";
-import { ContentSection } from "@/components/content-section";
+import { CommentsSection } from "@/components/comments/comments-section";
 import { UserAvatar } from "@/components/user-avatar";
-import { VoteStats } from "@/components/vote-stats";
+import { VoteControls } from "@/components/vote-controls";
 import { getAsset, getAssetById, getPostById } from "@/lib/asset";
 
 export function generateStaticParams() {
@@ -52,20 +51,13 @@ export default async function PostDetailPage({
           {post.content}
         </p>
 
-        <VoteStats
-          votes={post.votes}
-          commentCount={post.commentCount}
+        <VoteControls
+          initialVotes={post.votes}
           className="border-t border-border pt-3"
         />
       </article>
 
-      <ContentSection
-        id="comments"
-        title="Comentarios"
-        subtitle={`${post.comments.length} comentarios`}
-      >
-        <CommentList comments={post.comments} />
-      </ContentSection>
+      <CommentsSection initialComments={post.comments} />
     </div>
   );
 }

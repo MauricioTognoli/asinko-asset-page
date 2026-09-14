@@ -2,11 +2,10 @@ import { notFound } from "next/navigation";
 
 import { AssetHeader } from "@/components/asset-header";
 import { BackLink } from "@/components/back-link";
-import { CommentList } from "@/components/comment-list";
-import { ContentSection } from "@/components/content-section";
+import { CommentsSection } from "@/components/comments/comments-section";
 import { ThesisStatusBadges } from "@/components/theses/thesis-status-badges";
 import { UserAvatar } from "@/components/user-avatar";
-import { VoteStats } from "@/components/vote-stats";
+import { VoteControls } from "@/components/vote-controls";
 import { formatConviction, formatDeadline } from "@/lib/format";
 import { getAsset, getAssetById, getThesisById } from "@/lib/asset";
 
@@ -89,20 +88,13 @@ export default async function ThesisDetailPage({
           {thesis.reasoning}
         </p>
 
-        <VoteStats
-          votes={thesis.votes}
-          commentCount={thesis.commentCount}
+        <VoteControls
+          initialVotes={thesis.votes}
           className="border-t border-border pt-3"
         />
       </article>
 
-      <ContentSection
-        id="comments"
-        title="Comentarios"
-        subtitle={`${thesis.comments.length} comentarios`}
-      >
-        <CommentList comments={thesis.comments} />
-      </ContentSection>
+      <CommentsSection initialComments={thesis.comments} />
     </div>
   );
 }

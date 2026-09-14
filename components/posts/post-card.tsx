@@ -1,7 +1,8 @@
 import Link from "next/link";
 
+import { CommentCount } from "@/components/comment-count";
 import { UserAvatar } from "@/components/user-avatar";
-import { VoteStats } from "@/components/vote-stats";
+import { VoteControls } from "@/components/vote-controls";
 import type { Post } from "@/types/asset";
 
 interface PostCardProps {
@@ -10,30 +11,32 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, assetId }: PostCardProps) {
-  const authorId = `${post.id}-author`;
-
   return (
-    <Link
-      href={`/asset/${assetId}/post/${post.id}`}
-      aria-labelledby={authorId}
-      className="flex gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-brand/40 hover:bg-accent/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none sm:gap-4 sm:p-5"
-    >
+    <article className="relative flex gap-3 rounded-xl border border-border bg-card p-4 transition-colors has-[a:hover]:border-brand/40 has-[a:hover]:bg-accent/40 has-[a:focus-visible]:border-ring has-[a:focus-visible]:ring-3 has-[a:focus-visible]:ring-ring/50 sm:gap-4 sm:p-5">
       <UserAvatar name={post.author} />
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-          <span id={authorId} className="font-medium text-foreground">
+          <Link
+            href={`/asset/${assetId}/post/${post.id}`}
+            className="font-medium text-foreground after:absolute after:inset-0 focus-visible:outline-none"
+          >
             @{post.author}
-          </span>
-          <time className="text-sm text-muted-foreground">{post.publishedAt}</time>
+          </Link>
+          <time className="text-sm text-muted-foreground">
+            {post.publishedAt}
+          </time>
         </div>
 
         <p className="text-sm leading-relaxed text-foreground/90 sm:text-base">
           {post.content}
         </p>
 
-        <VoteStats votes={post.votes} commentCount={post.commentCount} className="pt-1" />
+        <div className="relative z-10 flex items-center gap-4 pt-1">
+          <VoteControls initialVotes={post.votes} />
+          <CommentCount count={post.commentCount} />
+        </div>
       </div>
-    </Link>
+    </article>
   );
 }

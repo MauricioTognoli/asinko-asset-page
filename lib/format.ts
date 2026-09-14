@@ -33,3 +33,7 @@ export function formatDeadline(isoDate: string): string {
 export function formatConviction(conviction: ConvictionLevel): string {
   return CONVICTION_LABELS[conviction];
 }
+
+export function formatCommentCount(count: number): string {
+  return count === 1 ? "1 comentario" : `${count} comentarios`;
+}
