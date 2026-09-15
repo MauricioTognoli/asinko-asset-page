@@ -35,7 +35,7 @@ export function PostCard({ post, assetId }: PostCardProps) {
         </p>
 
         <div className="relative z-10 flex items-center gap-4 pt-1">
-          <VoteControls initialVotes={post.votes} />
+          <VoteControls contentId={post.id} initialVotes={post.votes} />
           <LiveCommentCount
             contentId={post.id}
             initialCount={post.comments.length}

@@ -89,6 +89,7 @@ export default async function ThesisDetailPage({
         </p>
 
         <VoteControls
+          contentId={thesis.id}
           initialVotes={thesis.votes}
           className="border-y border-border py-3"
         />

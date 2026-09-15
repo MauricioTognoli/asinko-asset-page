@@ -1,24 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { cn } from "cn";
 
 import { applyVoteState, toggleVote, type VoteState } from "@/lib/vote";
+import { readStoredVote, writeStoredVote } from "@/lib/vote-storage";
 import type { VoteCounts } from "@/types/asset";
 
 interface VoteControlsProps {
+  contentId: string;
   initialVotes: VoteCounts;
   className?: string;
 }
 
-export function VoteControls({ initialVotes, className }: VoteControlsProps) {
+export function VoteControls({
+  contentId,
+  initialVotes,
+  className,
+}: VoteControlsProps) {
   const [voteState, setVoteState] = useState<VoteState>(null);
+
+  useEffect(() => {
+    const stored = readStoredVote(contentId);
+    if (stored) {
+      setVoteState(stored);
+    }
+  }, [contentId]);
 
   const { upvotes, downvotes } = applyVoteState(initialVotes, voteState);
 
   function handleVote(next: "up" | "down") {
-    setVoteState((current) => toggleVote(current, next));
+    setVoteState((current) => {
+      const updated = toggleVote(current, next);
+      writeStoredVote(contentId, updated);
+      return updated;
+    });
   }
 
   return (

@@ -54,6 +54,7 @@ export default async function PostDetailPage({
         </p>
 
         <VoteControls
+          contentId={post.id}
           initialVotes={post.votes}
           className="border-y border-border py-3"
         />

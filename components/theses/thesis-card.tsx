@@ -72,7 +72,7 @@ export function ThesisCard({ thesis, assetId }: ThesisCardProps) {
       </p>
 
       <div className="relative z-10 flex items-center gap-4 border-t border-border pt-3">
-        <VoteControls initialVotes={thesis.votes} />
+        <VoteControls contentId={thesis.id} initialVotes={thesis.votes} />
         <LiveCommentCount
           contentId={thesis.id}
           initialCount={thesis.comments.length}
