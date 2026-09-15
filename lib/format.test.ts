@@ -4,6 +4,7 @@ import {
   formatCommentCount,
   formatConviction,
   formatDeadline,
+  truncate,
 } from "@/lib/format";
 
 describe("formatDeadline", () => {
@@ -36,5 +37,18 @@ describe("formatCommentCount", () => {
     expect(formatCommentCount(0)).toBe("0 comentarios");
     expect(formatCommentCount(2)).toBe("2 comentarios");
     expect(formatCommentCount(2812)).toBe("2812 comentarios");
+  });
+});
+
+describe("truncate", () => {
+  it("leaves short text untouched", () => {
+    expect(truncate("Nvidia", 160)).toBe("Nvidia");
+  });
+
+  it("cuts long text and appends an ellipsis within the max length", () => {
+    const text = "a".repeat(200);
+    const result = truncate(text, 160);
+    expect(result.length).toBe(160);
+    expect(result.endsWith("…")).toBe(true);
   });
 });

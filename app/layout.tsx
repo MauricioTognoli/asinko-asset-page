@@ -15,10 +15,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_DESCRIPTION =
+  "Asinko: la red social donde la comunidad publica y discute research sobre activos financieros.";
+
 export const metadata: Metadata = {
-  title: "Asinko",
-  description:
-    "Asinko: la red social donde la comunidad publica y discute research sobre activos financieros.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  title: {
+    default: "Asinko",
+    template: "%s | Asinko",
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    siteName: "Asinko",
+    type: "website",
+    locale: "es",
+  },
+  twitter: {
+    card: "summary",
+  },
 };
 
 const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem("asinko-theme");var d=s==="dark"||(!s&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(d)document.documentElement.classList.add("dark")}catch(e){}})()`;

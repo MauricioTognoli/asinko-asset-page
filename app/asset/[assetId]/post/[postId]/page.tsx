@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { AssetHeader } from "@/components/asset-header";
@@ -6,6 +7,7 @@ import { CommentsSection } from "@/components/comments/comments-section";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoteControls } from "@/components/vote-controls";
 import { getAsset, getAssetById, getPostById } from "@/lib/asset";
+import { truncate } from "@/lib/format";
 
 export function generateStaticParams() {
   const asset = getAsset();
@@ -13,6 +15,28 @@ export function generateStaticParams() {
     assetId: asset.id,
     postId: post.id,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/asset/[assetId]/post/[postId]">): Promise<Metadata> {
+  const { assetId, postId } = await params;
+
+  const asset = getAssetById(assetId);
+  const post = getPostById(postId);
+  if (!asset || !post) {
+    return {};
+  }
+
+  const title = `@${post.author} sobre ${asset.ticker}`;
+  const description = truncate(post.content, 160);
+
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: "article" },
+    twitter: { title, description },
+  };
 }
 
 export default async function PostDetailPage({

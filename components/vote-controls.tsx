@@ -24,6 +24,7 @@ export function VoteControls({
   useEffect(() => {
     const stored = readStoredVote(contentId);
     if (stored) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restaura el voto guardado en localStorage, invisible para el render estático inicial
       setVoteState(stored);
     }
   }, [contentId]);

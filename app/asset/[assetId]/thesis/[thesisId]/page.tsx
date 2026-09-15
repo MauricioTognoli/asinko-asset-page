@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { AssetHeader } from "@/components/asset-header";
@@ -6,7 +7,7 @@ import { CommentsSection } from "@/components/comments/comments-section";
 import { ThesisStatusBadges } from "@/components/theses/thesis-status-badges";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoteControls } from "@/components/vote-controls";
-import { formatConviction, formatDeadline } from "@/lib/format";
+import { formatConviction, formatDeadline, truncate } from "@/lib/format";
 import { getAsset, getAssetById, getThesisById } from "@/lib/asset";
 
 export function generateStaticParams() {
@@ -15,6 +16,28 @@ export function generateStaticParams() {
     assetId: asset.id,
     thesisId: thesis.id,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/asset/[assetId]/thesis/[thesisId]">): Promise<Metadata> {
+  const { assetId, thesisId } = await params;
+
+  const asset = getAssetById(assetId);
+  const thesis = getThesisById(thesisId);
+  if (!asset || !thesis) {
+    return {};
+  }
+
+  const title = thesis.claim;
+  const description = truncate(thesis.reasoning, 160);
+
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: "article" },
+    twitter: { title, description },
+  };
 }
 
 export default async function ThesisDetailPage({

@@ -37,3 +37,10 @@ export function formatConviction(conviction: ConvictionLevel): string {
 export function formatCommentCount(count: number): string {
   return count === 1 ? "1 comentario" : `${count} comentarios`;
 }
+
+export function truncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return `${text.slice(0, maxLength - 1).trimEnd()}…`;
+}
