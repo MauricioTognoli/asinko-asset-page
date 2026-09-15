@@ -20,7 +20,6 @@ interface Votable {
   author: string;
   publishedAt: string;
   votes: VoteCounts;
-  commentCount: number;
   comments: Comment[];
 }
 

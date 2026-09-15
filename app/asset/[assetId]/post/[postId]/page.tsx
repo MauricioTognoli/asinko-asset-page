@@ -59,7 +59,7 @@ export default async function PostDetailPage({
         />
       </article>
 
-      <CommentsSection initialComments={post.comments} />
+      <CommentsSection contentId={post.id} initialComments={post.comments} />
     </div>
   );
 }

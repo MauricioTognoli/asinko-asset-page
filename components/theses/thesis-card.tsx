@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CommentCount } from "@/components/comment-count";
+import { LiveCommentCount } from "@/components/live-comment-count";
 import { ThesisStatusBadges } from "@/components/theses/thesis-status-badges";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoteControls } from "@/components/vote-controls";
@@ -73,8 +73,9 @@ export function ThesisCard({ thesis, assetId }: ThesisCardProps) {
 
       <div className="relative z-10 flex items-center gap-4 border-t border-border pt-3">
         <VoteControls initialVotes={thesis.votes} />
-        <CommentCount
-          count={thesis.commentCount}
+        <LiveCommentCount
+          contentId={thesis.id}
+          initialCount={thesis.comments.length}
           href={`${detailPath}#comments`}
         />
       </div>

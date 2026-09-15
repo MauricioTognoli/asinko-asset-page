@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CommentCount } from "@/components/comment-count";
+import { LiveCommentCount } from "@/components/live-comment-count";
 import { UserAvatar } from "@/components/user-avatar";
 import { VoteControls } from "@/components/vote-controls";
 import type { Post } from "@/types/asset";
@@ -36,8 +36,9 @@ export function PostCard({ post, assetId }: PostCardProps) {
 
         <div className="relative z-10 flex items-center gap-4 pt-1">
           <VoteControls initialVotes={post.votes} />
-          <CommentCount
-            count={post.commentCount}
+          <LiveCommentCount
+            contentId={post.id}
+            initialCount={post.comments.length}
             href={`${detailPath}#comments`}
           />
         </div>

@@ -13,6 +13,7 @@ export function ThemeToggle() {
   const [isDark, setIsDark] = useState<boolean | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reads client-only state on mount to avoid a hydration mismatch
     setIsDark(document.documentElement.classList.contains("dark"));
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     function handleSystemChange(event: MediaQueryListEvent) {

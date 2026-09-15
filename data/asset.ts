@@ -13,7 +13,6 @@ export const nvdaAsset: Asset = {
       content:
         "La nueva arquitectura Blackwell ya está copando los pedidos de los hyperscalers. Microsoft y Meta confirmaron ampliación de pedidos para el próximo trimestre. El cuello de botella sigue siendo capacidad de empaquetado en TSMC, no demanda.",
       votes: { upvotes: 128, downvotes: 12 },
-      commentCount: 124,
       comments: [
         {
           id: "post-1-c1",
@@ -36,7 +35,6 @@ export const nvdaAsset: Asset = {
       content:
         "A 35x ganancias forward, el mercado ya está descontando varios años de crecimiento a tasas actuales. No digo que sea mala empresa, digo que el precio no deja mucho margen de error.",
       votes: { upvotes: 74, downvotes: 31 },
-      commentCount: 317,
       comments: [
         {
           id: "post-2-c1",
@@ -59,7 +57,6 @@ export const nvdaAsset: Asset = {
       content:
         "El CEO vendió otro tramo de acciones esta semana. Ya van varios insiders liquidando posiciones en los últimos meses. ¿Alguien más lo está siguiendo?",
       votes: { upvotes: 45, downvotes: 61 },
-      commentCount: 93,
       comments: [
         {
           id: "post-3-c1",
@@ -91,7 +88,6 @@ export const nvdaAsset: Asset = {
       reasoning:
         "El capex de los hyperscalers en infraestructura de IA sigue acelerando de cara a 2027, y NVIDIA mantiene share dominante en entrenamiento e inferencia. El ecosistema CUDA eleva el costo de cambiar de proveedor y sostiene el múltiplo actual.",
       votes: { upvotes: 312, downvotes: 28 },
-      commentCount: 2812,
       comments: [
         {
           id: "thesis-1-c1",
@@ -121,7 +117,6 @@ export const nvdaAsset: Asset = {
       reasoning:
         "Los chips propios de los hyperscalers vienen reemplazando una porción creciente de su demanda interna, y AMD cierra la brecha de performance más rápido de lo que descuenta el mercado. Es una tesis de compresión de márgenes, no de colapso.",
       votes: { upvotes: 96, downvotes: 22 },
-      commentCount: 1459,
       comments: [
         {
           id: "thesis-2-c1",

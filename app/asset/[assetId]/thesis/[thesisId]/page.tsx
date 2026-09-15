@@ -94,7 +94,10 @@ export default async function ThesisDetailPage({
         />
       </article>
 
-      <CommentsSection initialComments={thesis.comments} />
+      <CommentsSection
+        contentId={thesis.id}
+        initialComments={thesis.comments}
+      />
     </div>
   );
 }
