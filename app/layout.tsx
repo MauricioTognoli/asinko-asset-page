@@ -21,12 +21,18 @@ export const metadata: Metadata = {
     "Asinko: la red social donde la comunidad publica y discute research sobre activos financieros.",
 };
 
+const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem("asinko-theme");var d=s==="dark"||(!s&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(d)document.documentElement.classList.add("dark")}catch(e){}})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es"
+      suppressHydrationWarning
       className={`${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <div className="flex min-h-svh flex-col bg-background">
           <Header />
