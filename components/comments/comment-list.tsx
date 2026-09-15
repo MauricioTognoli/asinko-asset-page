@@ -19,10 +19,10 @@ export function CommentList({ comments, newCommentId }: CommentListProps) {
               "animate-in fade-in slide-in-from-top-2 duration-300",
           )}
         >
-          <span className="block text-sm font-medium text-foreground">
+          <span className="wrap-break-word block text-sm font-medium text-foreground">
             @{comment.author}
           </span>
-          <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+          <p className="wrap-break-word mt-1 text-sm leading-relaxed text-foreground/90">
             {comment.content}
           </p>
         </li>

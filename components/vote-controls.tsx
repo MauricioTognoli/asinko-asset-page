@@ -4,9 +4,8 @@ import { useState } from "react";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { cn } from "cn";
 
+import { applyVoteState, toggleVote, type VoteState } from "@/lib/vote";
 import type { VoteCounts } from "@/types/asset";
-
-type VoteState = "up" | "down" | null;
 
 interface VoteControlsProps {
   initialVotes: VoteCounts;
@@ -16,11 +15,10 @@ interface VoteControlsProps {
 export function VoteControls({ initialVotes, className }: VoteControlsProps) {
   const [voteState, setVoteState] = useState<VoteState>(null);
 
-  const upvotes = initialVotes.upvotes + (voteState === "up" ? 1 : 0);
-  const downvotes = initialVotes.downvotes + (voteState === "down" ? 1 : 0);
+  const { upvotes, downvotes } = applyVoteState(initialVotes, voteState);
 
   function handleVote(next: "up" | "down") {
-    setVoteState((current) => (current === next ? null : next));
+    setVoteState((current) => toggleVote(current, next));
   }
 
   return (
@@ -31,7 +29,7 @@ export function VoteControls({ initialVotes, className }: VoteControlsProps) {
         aria-label="Votar a favor"
         onClick={() => handleVote("up")}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-medium tabular-nums transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-base font-medium tabular-nums transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           voteState === "up"
             ? "border-brand/40 bg-brand/10 font-semibold text-brand"
             : "border-border text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -39,13 +37,18 @@ export function VoteControls({ initialVotes, className }: VoteControlsProps) {
       >
         <ArrowBigUp
           className={cn(
-            "size-4",
+            "size-5",
             voteState === "up" && "animate-in zoom-in-50 duration-300",
           )}
           fill={voteState === "up" ? "currentColor" : "none"}
           aria-hidden="true"
         />
-        {upvotes}
+        <span
+          key={upvotes}
+          className="inline-block animate-in zoom-in-50 duration-200"
+        >
+          {upvotes}
+        </span>
       </button>
 
       <button
@@ -54,7 +57,7 @@ export function VoteControls({ initialVotes, className }: VoteControlsProps) {
         aria-label="Votar en contra"
         onClick={() => handleVote("down")}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-medium tabular-nums transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-base font-medium tabular-nums transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           voteState === "down"
             ? "border-foreground/40 bg-foreground/10 font-semibold text-foreground"
             : "border-border text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -62,13 +65,18 @@ export function VoteControls({ initialVotes, className }: VoteControlsProps) {
       >
         <ArrowBigDown
           className={cn(
-            "size-4",
+            "size-5",
             voteState === "down" && "animate-in zoom-in-50 duration-300",
           )}
           fill={voteState === "down" ? "currentColor" : "none"}
           aria-hidden="true"
         />
-        {downvotes}
+        <span
+          key={downvotes}
+          className="inline-block animate-in zoom-in-50 duration-200"
+        >
+          {downvotes}
+        </span>
       </button>
     </div>
   );

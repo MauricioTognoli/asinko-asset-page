@@ -33,18 +33,18 @@ export default async function ThesisDetailPage({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
+    <div className="flex w-full flex-col gap-8">
       <BackLink href="/" label={`Volver a ${asset.name}`} />
 
       <AssetHeader asset={asset} />
 
-      <article className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4 sm:p-6">
+      <article className="flex flex-col gap-4">
         <ThesisStatusBadges thesis={thesis} />
 
         <div className="flex items-center gap-3">
-          <UserAvatar name={thesis.author} />
-          <div className="flex flex-1 flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-            <span className="font-medium text-foreground">
+          <UserAvatar name={thesis.author} size="lg" />
+          <div className="flex min-w-0 flex-1 flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <span className="wrap-break-word font-medium text-foreground">
               @{thesis.author}
             </span>
             <time className="text-sm text-muted-foreground">
@@ -53,7 +53,7 @@ export default async function ThesisDetailPage({
           </div>
         </div>
 
-        <h2 className="text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+        <h2 className="wrap-break-word text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
           {thesis.claim}
         </h2>
 
@@ -84,13 +84,13 @@ export default async function ThesisDetailPage({
           </div>
         </dl>
 
-        <p className="text-base leading-relaxed text-foreground/90">
+        <p className="wrap-break-word text-base leading-relaxed text-foreground/90">
           {thesis.reasoning}
         </p>
 
         <VoteControls
           initialVotes={thesis.votes}
-          className="border-t border-border pt-3"
+          className="border-y border-border py-3"
         />
       </article>
 

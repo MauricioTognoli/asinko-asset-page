@@ -16,7 +16,11 @@ export function ContentSection({
   const headingId = `${id}-heading`;
 
   return (
-    <section aria-labelledby={headingId} className="space-y-4">
+    <section
+      id={id}
+      aria-labelledby={headingId}
+      className="scroll-mt-20 space-y-4"
+    >
       <div className="flex items-baseline justify-between border-b border-border pb-3">
         <h2
           id={headingId}
@@ -24,7 +28,12 @@ export function ContentSection({
         >
           {title}
         </h2>
-        <span className="text-sm text-muted-foreground">{subtitle}</span>
+        <span
+          key={subtitle}
+          className="inline-block animate-in fade-in-0 zoom-in-95 text-sm text-muted-foreground duration-200"
+        >
+          {subtitle}
+        </span>
       </div>
       {children}
     </section>

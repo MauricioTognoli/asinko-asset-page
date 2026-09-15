@@ -16,3 +16,21 @@ export function getPostById(id: string): Post | undefined {
 export function getThesisById(id: string): Thesis | undefined {
   return nvdaAsset.theses.find((thesis) => thesis.id === id);
 }
+
+export interface VoteSummary {
+  upvotes: number;
+  downvotes: number;
+  total: number;
+  positivePercent: number;
+}
+
+export function getVoteSummary(asset: Asset): VoteSummary {
+  const items = [...asset.posts, ...asset.theses];
+  const upvotes = items.reduce((sum, item) => sum + item.votes.upvotes, 0);
+  const downvotes = items.reduce((sum, item) => sum + item.votes.downvotes, 0);
+  const total = upvotes + downvotes;
+  const positivePercent =
+    total === 0 ? 50 : Math.round((upvotes / total) * 100);
+
+  return { upvotes, downvotes, total, positivePercent };
+}
